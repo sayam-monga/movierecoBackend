@@ -327,8 +327,9 @@ router.post("/:movieId/reviews", auth, async (req, res) => {
 
     // Check if user has already reviewed this movie
     const existingReview = movie.reviews.find(
-      (review) => review.user === user.username
+      (review) => review.user.toString() === userId
     );
+
     if (existingReview) {
       return res.status(400).json({
         message: "You have already reviewed this movie",
@@ -338,7 +339,7 @@ router.post("/:movieId/reviews", auth, async (req, res) => {
 
     // Create review object
     const review = {
-      user: user.username,
+      user: user._id, // ← use ObjectId
       rating: rating,
       comment: comment.trim(),
       createdAt: new Date(),

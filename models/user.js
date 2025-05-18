@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const userReviewSchema = new mongoose.Schema({
   movie: { type: mongoose.Schema.Types.ObjectId, ref: "Movie" },
+   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   rating: { type: Number, min: 1, max: 5 },
   comment: String,
   date: { type: Date, default: Date.now },
